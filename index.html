@@ -22,14 +22,18 @@
             class="search-input"
             id="topicInput"
             placeholder="Enter a topic (e.g., love, nature, friendship)"
-            required
+          
           />
           <button type="submit" class="submit-btn">Generate Poem</button>
         </form>
-
+        <span class = "errorMessage" id="errorMessage"></span>
         <section class="poem-section" id="poemSection">
           <div class="poem-placeholder" id="poemPlaceholder">
             Your generated poem will appear here...
+          </div>
+          <div class="loading" id="loadingIndicator">
+            <div class="spinner"></div>
+            <p>Crafting your poem...</p>
           </div>
           <div class="poem-content" id="poemContent"></div>
         </section>
