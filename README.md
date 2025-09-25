@@ -3,9 +3,8 @@
 A web application that generates beautiful poems on any topic using artificial intelligence.
 
 ## 👨‍💻 Author
-
-Nonjabulo Phoswa
-GitHub: @Nonjie-Phoswa
+    Nonjabulo Phoswa
+    GitHub: @Nonjie-Phoswa
 
 ## 🌟 Features
 
