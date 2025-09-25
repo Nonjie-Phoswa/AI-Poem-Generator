@@ -25,10 +25,11 @@ function generatePoem(event) {
   document.getElementById("poemContent").style.display = "none";
   document.getElementById("loadingIndicator").style.display = "flex";
 
-  setTimeout(showPoem, 2000);
+  setTimeout(showPoem(topic), 2000);
 }
 
-function showPoem() {
+function showPoem(topic) {
+
   let fallbackPoem = `On the topic of ${topic}
                 
 In realms of thought where ${topic} resides,
