@@ -32,7 +32,6 @@ function generatePoem(event) {
   const loadingEl = document.getElementById("loadingIndicator");
   if (loadingEl) loadingEl.style.display = "flex";
 
-  // Correct fetch usage: call fetch(url) then chain .then(...)
   fetch(`/.netlify/functions/getPoem?topic=${encodeURIComponent(topic)}`)
     .then((response) => {
       if (!response.ok) {
@@ -48,9 +47,36 @@ function generatePoem(event) {
       const poemContentEl = document.getElementById("poemContent");
       const answer =
         (data && (data.answer || data.response || data.poem || data.result)) ||
-        "";
-      poemContentEl.textContent = answer || showPoem(topic);
+        showPoem(topic);
+
+      // Split poem into first line + rest
+      let lines = answer.split("\n");
+      let title = lines[0];
+      let body = lines.slice(1).join("\n");
+
+      poemContentEl.innerHTML = "";
       poemContentEl.style.display = "block";
+
+      let titleEl = document.createElement("div");
+      let bodyEl = document.createElement("pre");
+      poemContentEl.appendChild(titleEl);
+      poemContentEl.appendChild(bodyEl);
+
+      // TypewriterJS
+      new window.Typewriter(titleEl, {
+        strings: title,
+        autoStart: true,
+        cursor: "",
+        delay: 50,
+      });
+
+      const titleLength = title.length;
+      const estimatedTime = titleLength * 50;
+
+      setTimeout(() => {
+        bodyEl.textContent = body;
+      }, estimatedTime + 500);
+      
     })
     .catch((error) => {
       if (loadingEl) loadingEl.style.display = "none";
