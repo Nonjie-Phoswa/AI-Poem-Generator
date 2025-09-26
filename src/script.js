@@ -25,12 +25,30 @@ function generatePoem(event) {
   document.getElementById("poemContent").style.display = "none";
   document.getElementById("loadingIndicator").style.display = "flex";
 
-  setTimeout(showPoem(topic), 2000);
+  fetch(
+    `/.netlify/functions/getPoem?topic=${encodeURIComponent(topic)}`
+      .then((response) => response.json())
+      .then((data) => {
+        document.getElementById("loadingIndicator").style.display = "none";
+        if (data.answer) {
+          document.getElementById("poemContent").textContent = data.answer;
+        } else {
+          document.getElementById("poemContent").textContent = showPoem(topic);
+        }
+        document.getElementById("poemContent").style.display = "block";
+      })
+
+      .catch((error) => {
+        // Hide loading indicator and show poem
+        document.getElementById("loadingIndicator").style.display = "none";
+        document.getElementById("poemContent").textContent = fallbackPoem;
+        document.getElementById("poemContent").style.display = "block";
+      })
+  );
 }
 
 function showPoem(topic) {
-
-  let fallbackPoem = `On the topic of ${topic}
+  return `On the topic of ${topic}
                 
 In realms of thought where ${topic} resides,
 A tapestry of meaning gently glides.
@@ -46,9 +64,4 @@ So let us cherish, let us hold,
 This ${topic} story to be told.
 More precious than the finest gold,
 A wonder to behold.`;
-
-  // Hide loading indicator and show poem
-  document.getElementById("loadingIndicator").style.display = "none";
-  document.getElementById("poemContent").textContent = fallbackPoem;
-  document.getElementById("poemContent").style.display = "block";
 }
