@@ -1,5 +1,4 @@
 exports.handler = async function (event) {
-
   let API_KEY = process.env.SheCodes_AI_API;
 
   if (!API_KEY) {
@@ -9,11 +8,11 @@ exports.handler = async function (event) {
     };
   }
 
-  let topic = (event.queryStringParameters.topic).trim();
+  let topic = event.queryStringParameters.topic.trim();
 
-  let prompt = `Create a short poem about ${topic}. Give it a title.`;
-  let context =
-    "Make it creative, engaging, in a poetic style and less than 100 words.";
+  let prompt = `Create a short poem about ${topic} and in the language of the ${topic}. The poem must start with a title written in ALL CAPS on the first line. Do not use asterisks, quotes or special characters around the title.`;
+
+  let context = "Make it creative, engaging, in a poetic style and less than 100 words.";
 
   let url = `https://api.shecodes.io/ai/v1/generate?prompt=${encodeURIComponent(
     prompt
