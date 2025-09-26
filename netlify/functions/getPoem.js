@@ -1,22 +1,71 @@
-const fetch = require("node-fetch");
-
 exports.handler = async (event) => {
   try {
-    let API_KEY = process.env.SheCodes_AI_API;
+    
+    if (event.httpMethod === "OPTIONS") {
+      return {
+        statusCode: 200,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers": "Content-Type",
+          "Access-Control-Allow-Methods": "GET, OPTIONS",
+        },
+        body: "",
+      };
+    }
 
-    let topic = event.queryStringParameters.topic || "life";
+    
+    const API_KEY = process.env.SheCodes_AI_API;
+    if (!API_KEY) {
+      return {
+        statusCode: 500,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+        body: "Missing SheCodes_AI_API environment key",
+      };
+    }
 
-    let prompt = `Create a poem about ${topic}`;
-    let context = "Make it creative, engaging and in a poetic style.";
+    const params = event.queryStringParameters || {};
+    const topic = (params.topic || "life").trim();
 
-    let url = `https://api.shecodes.io/ai/v1/generate?prompt=${encodeURIComponent(
+    const prompt = `Create a poem about ${topic}`;
+    const context = "Make it creative, engaging and in a poetic style.";
+
+    const url = `https://api.shecodes.io/ai/v1/generate?prompt=${encodeURIComponent(
       prompt
     )}&context=${encodeURIComponent(context)}&key=${API_KEY}`;
-    
-    let response = await fetch(url);
 
-    let data = await response.json();
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      const text = await response.text();
+      return {
+        statusCode: response.status,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+        body: text,
+      };
+    }
+
+    const data = await response.json();
 
     return {
       statusCode: 200,
-  
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+  } catch (error) {
+ 
+    return {
+      statusCode: 500,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: `Server error: ${error.message}`,
+    };
+  }
+};
