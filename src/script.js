@@ -7,44 +7,59 @@ function generatePoem(event) {
   let topic = document.querySelector("#topicInput").value.trim();
 
   let errorMessage = document.querySelector("#errorMessage");
-  errorMessage.textContent = "";
+  if (errorMessage) {
+    errorMessage.textContent = "";
+  }
 
   if (!topic) {
-    errorMessage.textContent = "Please enter a topic name.";
+    if (errorMessage) {
+      errorMessage.textContent = "Please enter a topic name.";
+    }
     return;
   }
 
   if (!/^[a-zA-Z\s]+$/.test(topic)) {
-    errorMessage.textContent =
-      "Invalid topic. Only letters and spaces allowed.";
+    if (errorMessage) {
+      errorMessage.textContent =
+        "Invalid topic. Only letters and spaces allowed.";
+    }
     return;
   }
 
   // Show loading indicator
   document.getElementById("poemPlaceholder").style.display = "none";
   document.getElementById("poemContent").style.display = "none";
-  document.getElementById("loadingIndicator").style.display = "flex";
+  const loadingEl = document.getElementById("loadingIndicator");
+  if (loadingEl) loadingEl.style.display = "flex";
 
-  fetch(
-    `/.netlify/functions/getPoem?topic=${encodeURIComponent(topic)}`
-      .then((response) => response.json())
-      .then((data) => {
-        document.getElementById("loadingIndicator").style.display = "none";
-        if (data.answer) {
-          document.getElementById("poemContent").textContent = data.answer;
-        } else {
-          document.getElementById("poemContent").textContent = showPoem(topic);
-        }
-        document.getElementById("poemContent").style.display = "block";
-      })
+  // Correct fetch usage: call fetch(url) then chain .then(...)
+  fetch(`/.netlify/functions/getPoem?topic=${encodeURIComponent(topic)}`)
+    .then((response) => {
+      if (!response.ok) {
+        return response.text().then((text) => {
+          throw new Error(text || `Request failed with ${response.status}`);
+        });
+      }
+      return response.json();
+    })
+    .then((data) => {
+      if (loadingEl) loadingEl.style.display = "none";
 
-      .catch((error) => {
-        // Hide loading indicator and show poem
-        document.getElementById("loadingIndicator").style.display = "none";
-        document.getElementById("poemContent").textContent = fallbackPoem;
-        document.getElementById("poemContent").style.display = "block";
-      })
-  );
+      const poemContentEl = document.getElementById("poemContent");
+      const answer =
+        (data && (data.answer || data.response || data.poem || data.result)) ||
+        "";
+      poemContentEl.textContent = answer || showPoem(topic);
+      poemContentEl.style.display = "block";
+    })
+    .catch((error) => {
+      if (loadingEl) loadingEl.style.display = "none";
+
+      const poemContentEl = document.getElementById("poemContent");
+      poemContentEl.textContent = showPoem(topic);
+      poemContentEl.style.display = "block";
+      console.error(error);
+    });
 }
 
 function showPoem(topic) {
