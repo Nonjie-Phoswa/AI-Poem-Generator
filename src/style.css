@@ -134,6 +134,15 @@ h1 {
   margin-bottom: 1rem;
 }
 
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 footer {
   color: #7a7a7a;
   text-align: center;
