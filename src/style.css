@@ -118,6 +118,23 @@ h1 {
   width: 100%;
 }
 
+.poem-title {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #4a6fa5;
+}
+
+.poem-body {
+  white-space: pre-line;
+  line-height: 1.8;
+  font-size: 1.1rem;
+  color: #4a5568;
+  width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
 .loading {
   display: none;
   flex-direction: column;
@@ -178,4 +195,15 @@ footer {
   .submit-btn {
     margin-top: 10px;
   }
+
+  .poem-title {
+    font-size: 1.1rem;
+  }
+
+  .poem-body {
+    font-size: 1rem;
+    line-height: 1.6;
+    transition-duration: 0.8s;
+  }
 }
+

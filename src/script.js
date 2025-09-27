@@ -49,7 +49,6 @@ function generatePoem(event) {
         (data && (data.answer || data.response || data.poem || data.result)) ||
         showPoem(topic);
 
-      // Split poem into first line + rest
       let lines = answer.split("\n");
       let title = lines[0];
       let body = lines.slice(1).join("\n");
@@ -58,11 +57,12 @@ function generatePoem(event) {
       poemContentEl.style.display = "block";
 
       let titleEl = document.createElement("div");
-      let bodyEl = document.createElement("pre");
+      let bodyEl = document.createElement("div");
+      titleEl.className = "poem-title";
+      bodyEl.className = "poem-body";
       poemContentEl.appendChild(titleEl);
       poemContentEl.appendChild(bodyEl);
 
-      // TypewriterJS
       new window.Typewriter(titleEl, {
         strings: title,
         autoStart: true,
@@ -71,13 +71,17 @@ function generatePoem(event) {
       });
 
       const titleLength = title.length;
-      const estimatedTime = titleLength * 50;
+      const estimatedTime = titleLength * 70;
+
+      bodyEl.style.opacity = "0";
+      bodyEl.style.transition = "opacity 1.5s ease-in";
 
       setTimeout(() => {
         bodyEl.textContent = body;
-      }, estimatedTime + 500);
-      
+        bodyEl.style.opacity = "1";
+      }, estimatedTime);
     })
+
     .catch((error) => {
       if (loadingEl) loadingEl.style.display = "none";
 

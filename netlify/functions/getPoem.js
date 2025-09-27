@@ -12,7 +12,7 @@ exports.handler = async function (event) {
 
   let prompt = `Create a short poem about ${topic} and in the language of the ${topic}. The poem must start with a title written in ALL CAPS on the first line. Do not use asterisks, quotes or special characters around the title.`;
 
-  let context = "Make it creative, engaging, in a poetic style and less than 100 words.";
+  let context = "Make it creative, engaging, in a poetic style and less than 120 words.";
 
   let url = `https://api.shecodes.io/ai/v1/generate?prompt=${encodeURIComponent(
     prompt
