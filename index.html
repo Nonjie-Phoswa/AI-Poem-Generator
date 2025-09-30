@@ -5,36 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI Poem Generator</title>
     <link rel="stylesheet" href="src/style.css" />
+    <!-- <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap"
+      rel="stylesheet"
+    /> -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400&family=Inter:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div class="container">
-      <header>
-        <h1>AI Poem Generator</h1>
-        <p class="subtitle">
-          Enter a topic and let AI create a beautiful poem for you ✨
+      <header class="app-header">
+        <div class="header-icon">🪄</div>
+        <h1 class="app-title">Daily Faith Affirmations</h1>
+        <p class="app-subtitle">
+          Speak life over your day with affirmations rooted in God’s Word
         </p>
       </header>
-
       <main>
-        <form class="search-form" id="poemForm">
+        <form class="search-form" id="appForm">
           <input
             type="text"
             class="search-input"
             id="topicInput"
-            placeholder="Enter a topic (e.g., love, nature, friendship)"
+            placeholder="Enter a topic (e.g., chosen, strength, forgiveness, anxiety)"
           />
-          <button type="submit" class="submit-btn">Generate Poem</button>
+          <button type="submit" class="submit-btn">Generate</button>
         </form>
         <span class="errorMessage" id="errorMessage"></span>
-        <section class="poem-section" id="poemSection">
-          <div class="poem-placeholder" id="poemPlaceholder">
-            Your generated poem will appear here...
+        <section class="affirmation-section" id="affirmationSection">
+          <div class="affirmation-placeholder" id="affirmationPlaceholder">
+            Your affirmations will appear here...
           </div>
           <div class="loading" id="loadingIndicator">
             <div class="spinner"></div>
-            <p>Crafting your poem...</p>
+            <p>Crafting your affirmations...</p>
           </div>
-          <div class="poem-content" id="poemContent"></div>
+          <div class="affirmation-content" id="affirmationContent"></div>
         </section>
       </main>
     </div>

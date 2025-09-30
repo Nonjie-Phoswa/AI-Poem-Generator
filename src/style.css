@@ -6,13 +6,27 @@
 }
 
 body {
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 2rem;
   color: #333;
+  background: linear-gradient(68.4deg, rgb(248, 182, 204) 0.5%, rgb(192, 198, 230) 49%, rgb(225, 246, 240) 99.8%);
+  background-size: 600% 600%;
+  animation: gradientMove 10s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .container {
@@ -25,23 +39,74 @@ body {
   margin-bottom: 2rem;
 }
 
-header {
+.app-header {
   text-align: center;
+  padding: 2rem 1rem;
+  background: rgb(232, 240, 254);
+  position: relative;
+  font-family: "Inter", sans-serif;
   margin-bottom: 2.5rem;
+  border-radius: 15px;
 }
 
-h1 {
-  color: #4a6fa5;
+.header-icon {
   font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-  background: linear-gradient(90deg, #4a6fa5, #6b8cbc);
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  margin-bottom: 1rem;
+  animation: float 3s ease-in-out infinite;
 }
 
-.subtitle {
-  color: #7a7a7a;
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.app-title {
+  font-family: "Playfair Display", serif; 
+  font-size: 2.8rem;
+  font-weight: 300;
+  color: #a1887f;
+  margin: 0;
+  letter-spacing: -0.5px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  display: inline-block;
+}
+
+
+.app-title::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 10%;
+  width: 80%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #8d6e63, transparent);
+  border-radius: 2px;
+}
+
+.app-subtitle {
+  font-family: "Inter", sans-serif;
   font-size: 1.1rem;
+  color: #a1887f; 
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 0.5rem;
+}
+
+.app-header::after {
+  content: "•";
+  color: #6d4c41;
+  font-size: 1.5rem;
+  letter-spacing: 10px;
+  margin-top: 1rem;
+  display: block;
+  opacity: 0.5;
 }
 
 .search-form {
@@ -53,7 +118,7 @@ h1 {
 .search-input {
   flex: 1;
   padding: 15px 20px;
-  border: 2px solid #e1e8f0;
+  border: 2px solid rgb(232, 240, 254);
   border-radius: 50px;
   font-size: 1rem;
   transition: all 0.3s ease;
@@ -61,13 +126,13 @@ h1 {
 
 .search-input:focus {
   outline: none;
-  border-color: #4a6fa5;
-  box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.2);
+  /* border-color: rgb(232, 240, 254); */
+  box-shadow: 0 0 0 3px  rgb(192, 198, 230);
 }
 
 .submit-btn {
   padding: 15px 30px;
-  background: linear-gradient(135deg, #4a6fa5, #6b8cbc);
+  background: linear-gradient(68.4deg, rgb(248, 182, 204) 0.5%, rgb(192, 198, 230) 49%, rgb(225, 246, 240) 99.8%);
   color: white;
   border: none;
   border-radius: 50px;
@@ -91,7 +156,7 @@ h1 {
   font-size: 0.9em;
 }
 
-.poem-section {
+.affirmation-section {
   margin-top: 2rem;
   padding: 2rem;
   background-color: #f9fbfd;
@@ -105,12 +170,12 @@ h1 {
   border: 1px dashed #d1d9e6;
 }
 
-.poem-placeholder {
+.affirmation-placeholder {
   color: #a0aec0;
   font-style: italic;
 }
 
-.poem-content {
+.affirmation-content {
   white-space: pre-line;
   line-height: 1.8;
   font-size: 1.1rem;
@@ -118,14 +183,14 @@ h1 {
   width: 100%;
 }
 
-.poem-title {
+.affirmation-title {
   font-weight: bold;
   font-size: 1.2rem;
   margin-bottom: 1rem;
-  color: #4a6fa5;
+  color: rgb(139, 127, 163);
 }
 
-.poem-body {
+.affirmation-body {
   white-space: pre-line;
   line-height: 1.8;
   font-size: 1.1rem;
@@ -144,8 +209,8 @@ h1 {
 .spinner {
   width: 50px;
   height: 50px;
-  border: 5px solid #e1e8f0;
-  border-top: 5px solid #4a6fa5;
+  border: 5px solid #ffffff;
+  border-top: 5px solid rgb(139, 127, 163);
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin-bottom: 1rem;
@@ -196,7 +261,7 @@ footer {
     margin-top: 10px;
   }
 
-  .poem-title {
+  .affirmation-title {
     font-size: 1.1rem;
   }
 
@@ -206,4 +271,3 @@ footer {
     transition-duration: 0.8s;
   }
 }
-

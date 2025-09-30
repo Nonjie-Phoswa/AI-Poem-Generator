@@ -1,7 +1,7 @@
-let form = document.querySelector("#poemForm");
-form.addEventListener("submit", generatePoem);
+let form = document.querySelector("#appForm");
+form.addEventListener("submit", generateAffirmation);
 
-function generatePoem(event) {
+function generateAffirmation(event) {
   event.preventDefault();
 
   let topic = document.querySelector("#topicInput").value.trim();
@@ -27,12 +27,12 @@ function generatePoem(event) {
   }
 
   // Show loading indicator
-  document.getElementById("poemPlaceholder").style.display = "none";
-  document.getElementById("poemContent").style.display = "none";
+  document.getElementById("affirmationPlaceholder").style.display = "none";
+  document.getElementById("affirmationContent").style.display = "none";
   const loadingEl = document.getElementById("loadingIndicator");
   if (loadingEl) loadingEl.style.display = "flex";
 
-  fetch(`/.netlify/functions/getPoem?topic=${encodeURIComponent(topic)}`)
+  fetch(`/.netlify/functions/getAffirmation?topic=${encodeURIComponent(topic)}`)
     .then((response) => {
       if (!response.ok) {
         return response.text().then((text) => {
@@ -44,24 +44,24 @@ function generatePoem(event) {
     .then((data) => {
       if (loadingEl) loadingEl.style.display = "none";
 
-      const poemContentEl = document.getElementById("poemContent");
+      const affirmationContentEl = document.getElementById("affirmationContent");
       const answer =
         (data && (data.answer || data.response || data.poem || data.result)) ||
-        showPoem(topic);
+        showAffirmation(topic);
 
       let lines = answer.split("\n");
       let title = lines[0];
       let body = lines.slice(1).join("\n");
 
-      poemContentEl.innerHTML = "";
-      poemContentEl.style.display = "block";
+      affirmationContentEl.innerHTML = "";
+      affirmationContentEl.style.display = "block";
 
       let titleEl = document.createElement("div");
       let bodyEl = document.createElement("div");
-      titleEl.className = "poem-title";
-      bodyEl.className = "poem-body";
-      poemContentEl.appendChild(titleEl);
-      poemContentEl.appendChild(bodyEl);
+      titleEl.className = "affirmation-title";
+      bodyEl.className = "affirmation-body";
+      affirmationContentEl.appendChild(titleEl);
+      affirmationContentEl.appendChild(bodyEl);
 
       new window.Typewriter(titleEl, {
         strings: title,
@@ -85,28 +85,18 @@ function generatePoem(event) {
     .catch((error) => {
       if (loadingEl) loadingEl.style.display = "none";
 
-      const poemContentEl = document.getElementById("poemContent");
-      poemContentEl.textContent = showPoem(topic);
-      poemContentEl.style.display = "block";
+      const affirmationContentEl =
+        document.getElementById("affirmationContent");
+      affirmationContentEl.textContent = showAffirmation(topic);
+      affirmationContentEl.style.display = "block";
       console.error(error);
     });
 }
 
-function showPoem(topic) {
-  return `On the topic of ${topic}
+function showAffirmation(topic) {
+  return `${topic}
                 
-In realms of thought where ${topic} resides,
-A tapestry of meaning gently glides.
-Through whispered words and silent sighs,
-A universe of ${topic} never dies.
-
-It dances in the morning light,
-And lingers through the darkest night.
-A constant presence, pure and bright,
-${topic}'s essence, our soul's delight.
-
-So let us cherish, let us hold,
-This ${topic} story to be told.
-More precious than the finest gold,
-A wonder to behold.`;
+Even in the area of ${topic}, I am a child of God,
+Guided by His wisdom and strengthened by His love. 
+His grace covers every part of my life, including ${topic}.`;
 }
