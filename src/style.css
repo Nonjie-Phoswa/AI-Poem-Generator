@@ -232,15 +232,15 @@ footer {
   font-size: smaller;
 }
 
-.footer-link {
-  color: #4a6fa5;
+a {
+  color: rgb(183, 74, 111);
   text-decoration: none;
   font-weight: 600;
   transition: color 0.3s ease;
 }
 
-.footer-link:hover {
-  color: #6b8cbc;
+a:hover {
+  color: rgb(105, 85, 146);
   text-decoration: underline;
 }
 
