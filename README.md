@@ -22,7 +22,7 @@ Try it now: [daily-affirmations-generator.netlify.app](https://daily-affirmation
 
 ## 📸 Screenshots
 
-![App Screenshot](screenshot.png)
+![App Screenshot](https://s3.amazonaws.com/shecodesio-production/uploads/files/000/174/613/original/affirmations_app.png?1759870772)
 
 ## 🛠️ Installation & Usage
 
